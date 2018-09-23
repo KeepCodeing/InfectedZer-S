@@ -1,28 +1,294 @@
 <!DOCTYPE html>
-<html>
-    <head>
-        <title>Hank Quinlan, Horrible Cop</title>
-    </head>
-    <body>
-        <nav>
-            <ul>
-                <li><a href="/">Home</a></li>
-                <li><a href="/about">About</a></li>
-                <li><a href="/cv">CV</a></li>
-                <li><a href="/blog">Blog</a></li>
-            </ul>
+<html lang="zh-CN">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- 上述3个meta标签*必须*放在最前面，任何其他内容都*必须*跟随其后！ -->
+    <title>代码综合测试页</title>
+    <!-- Bootstrap -->
+    <link href="https://cdn.bootcss.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet">
+    <!-- HTML5 shim 和 Respond.js 是为了让 IE8 支持 HTML5 元素和媒体查询（media queries）功能 -->
+    <!-- 警告：通过 file:// 协议（就是直接将 html 页面拖拽到浏览器中）访问页面时 Respond.js 不起作用 -->
+    <!--[if lt IE 9]>
+    <script src="https://cdn.bootcss.com/html5shiv/3.7.3/html5shiv.min.js"></script>
+    <script src="https://cdn.bootcss.com/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+    <!-- jQuery (Bootstrap 的所有 JavaScript 插件都依赖 jQuery，所以必须放在前边) -->
+    <script src="https://cdn.bootcss.com/jquery/1.12.4/jquery.min.js"></script>
+    <!-- 加载 Bootstrap 的所有 JavaScript 插件。你也可以根据需要只加载单个插件。 -->
+    <script src="https://cdn.bootcss.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+
+    <!--我的js和css-->
+    <!--池沼机器人css-->
+    <link rel="stylesheet" href="http://1.magicweb.applinzi.com/file/css.css">
+    <!--音乐css-->
+    <link rel="stylesheet" href="http://1.magicweb.applinzi.com/file/musiccss.css">
+    <!--音乐js-->
+    <script src="http://1.magicweb.applinzi.com/file/musiclist.js"></script>
+    <!--机器人js-->
+    <script src="http://1.magicweb.applinzi.com/file/foolroobt.js"></script>
+
+    <!--各种杂乱代码-->
+    <script src="http://1.magicweb.applinzi.com/file/BootsJS.js"></script>
+    <!--<script src="BootsJS.js"></script>-->
+</head>
+<body>
+<div class="navbar-wrapper">
+    <div class="container">
+        <nav class="navbar navbar-inverse navbar-static-top">
+            <div class="container">
+                <div class="navbar-header">
+                    <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+                        <span class="sr-only">Toggle navigation</span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                    </button>
+                    <a class="navbar-brand" href="https://space.bilibili.com/94649037/#/">InfectedZer的个人主页</a>
+                </div>
+                <div id="navbar" class="navbar-collapse collapse">
+                    <ul class="nav navbar-nav">
+                        <li class="active"><a href="#">主页</a></li>
+                        <li><a href="#about " data-toggle="modal" data-target="#myModal">机器人</a></li>
+
+                        <li><a href="#contact" data-toggle="modal" data-target="#MusicModal">音乐</a></li>
+                        <!--<li class="dropdown">-->
+                            <!--<a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">菜单<span class="caret"></span></a>-->
+                            <!--<ul class="dropdown-menu">-->
+                                <!--<li><a href="#"></a></li>-->
+                                <!--<li><a href="#">Another action</a></li>-->
+                                <!--<li><a href="#">Something else here</a></li>-->
+                                <!--<li role="separator" class="divider"></li>-->
+                                <!--<li class="dropdown-header">Nav header</li>-->
+                                <!--<li><a href="#">Separated link</a></li>-->
+                                <!--<li><a href="#">One more separated link</a></li>-->
+                            <!--</ul>-->
+                        <!--</li>-->
+                    </ul>
+                </div>
+            </div>
         </nav>
-        <div class="container">
-            <div class="blurb">
-                <h1>Hi there, I'm Hank Quinlan!</h1>
-                <p>I'm best known as the horrible cop from <em>A Touch of Evil</em> Don't trust me. <a href="/about">Read more about my life...</a></p>
-            </div><!-- /.blurb -->
-        </div><!-- /.container -->
-        <footer>
-            <ul>
-                <li><a href="mailto:hankquinlanhub@gmail.com">email</a></li>
-                <li><a href="https://github.com/hankquinlan">github.com/hankquinlan</a></li>
-            </ul>
-        </footer>
-    </body>
+    </div>
+</div>
+<!--机器人模态框-->
+<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title" id="myModalLabel">关爱智障，人人有责</h4>
+            </div>
+            <div class="modal-body">
+                <h1>池沼聊天机器人</h1>
+                <div class="outbox">
+                </div>
+                <div class="send_div">
+                    <input type="text" size="20" class="text">
+                    <span class="send_bt">发送</span>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <!--<button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>-->
+                <button type="button" class="btn btn-primary" data-dismiss="modal">关闭</button>
+            </div>
+        </div>
+    </div>
+</div>
+<!--音乐模态框-->
+<div class="modal fade" id="MusicModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title" id="myMusicModal">无论什么时候音乐都会陪在你的身边</h4>
+            </div>
+            <div class="modal-body">
+                <div class="music_box">
+                    <iframe frameborder="no" border="0" marginwidth="0" marginheight="0" width=330 height=86
+                            src="//music.163.com/outchain/player?type=2&id=28341366&auto=0&height=66"></iframe>
+                    <a href="javascript:;" class="next">下一首</a>
+                    <a href="javascript:;" class="previous">上一首</a>
+                    <a href="https://music.163.com/#/user/home?id=384345353">歌单</a>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-primary" data-dismiss="modal">关闭</button>
+                <!--<button type="button" class="btn btn-primary">关闭</button>-->
+            </div>
+        </div>
+    </div>
+</div>
+<!-- Carousel
+================================================== -->
+<div id="myCarousel" class="carousel slide" data-ride="carousel" style="top: -71px;">
+    <!-- Indicators -->
+    <ol class="carousel-indicators" style="top: 80%">
+        <li data-target="#myCarousel" data-slide-to="0" class=""></li>
+        <li data-target="#myCarousel" data-slide-to="1" class=""></li>
+        <li data-target="#myCarousel" data-slide-to="2" class="active"></li>
+    </ol>
+    <div class="carousel-inner" role="listbox" style="top: -71px">
+        <div class="item" style="opacity: 1">
+            <img class="first-slide" src="http://1.magicweb.applinzi.com/Img/Img4.jpg" alt="First slide" style="min-width: 100%;height: 500px;opacity: 1">
+            <div class="container">
+                <div class="carousel-caption">
+                    <h1>今天也是好天气，明年也是好收成！</h1>
+                    <p>实现梦想的第一步是&nbsp;<code>相信</code>&nbsp;自己的梦想</p>
+                    <p><a tabindex="0" class="btn btn-lg btn-primary" role="button" data-toggle="popover" data-trigger="focus" title="You choose to believe" data-content="I believe you!" id="believealert">Believe</a></p>
+                </div>
+            </div>
+        </div>
+        <div class="item" style="opacity: 1">
+            <img class="second-slide" src="http://1.magicweb.applinzi.com/Img/Img3.jpg" alt="Second slide" style="min-width: 100%;height: 500px;">
+            <div class="container">
+                <div class="carousel-caption">
+                    <h1>八月...漫无止境</h1>
+                    <p>while(new Date.getMonth==7){<br>
+                        document.write("这是一个没有目的的循环...");<br>
+                        }</p>
+                    <a tabindex="0" class="btn btn-lg btn-primary" role="button" data-toggle="popover" data-trigger="focus" title="Change yourself" data-content="结束循环的关键并不是按下这个按钮。选择你自己的方式..." id="breakalert">Break it！</a>
+                </div>
+            </div>
+        </div>
+        <div class="item active" style="opacity: 1">
+            <img class="third-slide" src="http://1.magicweb.applinzi.com/Img/Img2.jpg" alt="Third slide" style="min-width: 100%;height: 500px;">
+            <div class="container">
+                <div class="carousel-caption">
+                    <h1>Welcome to my magic website!</h1>
+                    <p id="rad">当前正有：114人访问此页面</p>
+                    <p><a tabindex="0" class="btn btn-lg btn-primary" role="button" data-toggle="popover" data-trigger="focus" title="加入收藏提示" data-content="请按快捷键Ctrl+D将本站加入收藏" id="fov">加入收藏</a></p>
+                </div>
+            </div>
+        </div>
+    </div>
+    <a class="left carousel-control" href="#myCarousel" role="button" data-slide="prev" style="top: -71px;height: 100%">
+        <span class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span>
+        <span class="sr-only">Previous</span>
+    </a>
+    <a class="right carousel-control" href="#myCarousel" role="button" data-slide="next" style="top: -71px;height: 100%">
+        <span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span>
+        <span class="sr-only">Next</span>
+    </a>
+</div><!-- /.carousel -->
+<!-- Marketing messaging and featurettes
+================================================== -->
+<!-- Wrap the rest of the page in another container to center all the content. -->
+<div class="container marketing">
+    <!-- Three columns of text below the carousel -->
+    <div class="row">
+        <div class="col-lg-4">
+            <img class="img-circle" src="http://1.magicweb.applinzi.com/Img/Img1.jpg" alt="Generic placeholder image" width="140" height="140">
+            <h2>Something about me</h2>
+            <p>bilibili:InfectedZer<br>详情：<br>是17岁，工作是学生。身高不明，体重51.45公斤。倒是没有特别在做什么，不过有在自学前端知识。暂未学习后端相关知识，页面功能暂不完善...那么掉发什么的有在搞吧？这个不能有！</p>
+            <p><a class="btn btn-default" data-toggle="modal" data-target="#History1Md1" role="button" type="button"  >历史 »</a></p>
+            <div class="modal fade bs-example-modal-sm in" role="dialog" aria-labelledby="mySmallModalLabel" style="display: none; padding-right: 17px;" id="History1Md1">
+                <div class="modal-dialog modal-sm" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button>
+                            <h4 class="modal-title" id="mySmallModalLabel">个人相关历史记录</h4>
+                        </div>
+                        <div class="modal-body">
+                           8月5日: 暂无历史
+                        </div>
+                    </div><!-- /.modal-content -->
+                </div><!-- /.modal-dialog -->
+            </div>
+        </div><!-- /.col-lg-4 -->
+        <div class="col-lg-4">
+            <img class="img-circle" src="http://1.magicweb.applinzi.com/Img/Img5.jpg" alt="Generic placeholder image" width="140" height="140">
+            <h2>Some of my hobbies</h2>
+            <p>现在没有什么特别的爱好，有的只是三分钟热度...<br>1.HIFI（取决于可用资金）<br>2.电脑相关知识（取决于难易程度）<br>3.听歌（唯一坚持到现在的）<br><br><br></p>
+            <p><a class="btn btn-default" data-toggle="modal" data-target="#History1Md2" role="button" type="button"  >历史 »</a></p>
+            <div class="modal fade bs-example-modal-sm in" role="dialog" aria-labelledby="mySmallModalLabel" style="display: none; padding-right: 17px;" id="History1Md2">
+                <div class="modal-dialog modal-sm" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button>
+                            <h4 class="modal-title" >爱好历史记录</h4>
+                        </div>
+                        <div class="modal-body">
+                            8月5日: 暂无历史
+                        </div>
+                    </div><!-- /.modal-content -->
+                </div><!-- /.modal-dialog -->
+            </div>
+        </div><!-- /.col-lg-4 -->
+        <div class="col-lg-4">
+            <img class="img-circle" src="http://1.magicweb.applinzi.com/Img/Img6.jpg" alt="Generic placeholder image" width="140" height="140">
+            <h2>How to build a web site</h2>
+            <p>如何去搭建一个个人网站？<br>其实很简单，你只需要这样，这样，然后在这样最后提交你的首页代码就行了。什么？看不懂？那我也无能为力...<br><br><br><br></p>
+            <p><a a class="btn btn-default" data-toggle="modal" data-target="#History1Md3" role="button" type="button">历史 »</a></p>
+            <div class="modal fade bs-example-modal-sm in" role="dialog" aria-labelledby="mySmallModalLabel" style="display: none; padding-right: 17px;" id="History1Md3">
+                <div class="modal-dialog modal-sm" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button>
+                            <h4 class="modal-title" >建站历史记录</h4>
+                        </div>
+                        <div class="modal-body">
+                            8月5日: 暂无历史
+                        </div>
+                    </div><!-- /.modal-content -->
+                </div><!-- /.modal-dialog -->
+            </div>
+        </div><!-- /.col-lg-4 -->
+    </div><!-- /.row -->
+    <!-- START THE FEATURETTES -->
+    <hr class="featurette-divider">
+    <div class="row featurette">
+        <div class="col-md-7">
+            <h2 class="featurette-heading">前端知识介绍: <span class="text-muted">JavaScript</span></h2>
+            <p class="lead">JavaScript一种直译式脚本语言，是一种动态类型、弱类型、基于原型的语言，内置支持类型。它的解释器被称为JavaScript引擎，为浏览器的一部分，广泛用于客户端的脚本语言，最早是在HTML（标准通用标记语言下的一个应用）网页上使用，用来给HTML网页增加动态功能。与CSS、HTML不同，它可以用来操作页面行为，可以让你的页面更加酷炫和多变。目前JavaScript已经广泛应用于web开发。<br><br><br><br><br><br><span style="font-size: 13px">P.S.JavaScript与Java没有任何关系，它只是为了抱大腿才起的这个名字</span></p>
+        </div>
+        <div class="col-md-5">
+            <img class="featurette-image img-responsive center-block" data-src="holder.js/500x500/auto" alt="500x500" src="http://1.magicweb.applinzi.com/Img/Img7.jpg" data-holder-rendered="true" style="width: 457px;height: 400px">
+        </div>
+    </div>
+    <hr class="featurette-divider">
+    <div class="row featurette">
+        <div class="col-md-7 col-md-push-5">
+            <h2 class="featurette-heading">前端知识介绍: <span class="text-muted">Ajax（阿贾克斯）</span></h2>
+            <p class="lead">
+                Ajax 即“Asynchronous Javascript And XML”（异步 JavaScript 和 XML），是指一种创建交互式网页应用的网页开发技术。
+                Ajax = 异步 JavaScript 和 XML（标准通用标记语言的子集）。
+                Ajax 是一种用于创建快速动态网页的技术。
+                Ajax 是一种在无需重新加载整个网页的情况下，能够更新部分网页的技术。
+                通过在后台与服务器进行少量数据交换，Ajax 可以使网页实现异步更新。这意味着可以在不重新加载整个网页的情况下，对网页的某部分进行更新。
+                传统的网页（不使用 Ajax）如果需要更新内容，必须重载整个网页页面。
+            </p>
+        </div>
+        <div class="col-md-5 col-md-pull-7">
+            <img class="featurette-image img-responsive center-block" data-src="holder.js/500x500/auto" alt="500x500" src="http://1.magicweb.applinzi.com/Img/Img8.jpg" data-holder-rendered="true" style="width: 457px;height: 400px">
+        </div>
+    </div>
+    <hr class="featurette-divider">
+    <div class="row featurette">
+        <div class="col-md-7">
+            <h2 class="featurette-heading">前段知识介绍:<span class="text-muted">jQuery</span></h2>
+            <p class="lead">jQuery是一个快速、简洁的JavaScript框架，是继Prototype之后又一个优秀的JavaScript代码库（或JavaScript框架）。jQuery设计的宗旨是“write Less，Do More”，即倡导写更少的代码，做更多的事情。它封装JavaScript常用的功能代码，提供一种简便的JavaScript设计模式，优化HTML文档操作、事件处理、动画设计和Ajax交互。</p>
+        </div>
+        <div class="col-md-5">
+            <img class="featurette-image img-responsive center-block" data-src="holder.js/500x500/auto" alt="500x500" src="http://1.magicweb.applinzi.com/Img/Img9.jpg" data-holder-rendered="true">
+        </div>
+    </div>
+    <hr class="featurette-divider">
+    <!-- /END THE FEATURETTES -->
+    <!-- FOOTER -->
+    <footer>
+        <p class="pull-right"><a href="#">Back to top</a></p>
+        <!--<p>© 2016 Company, Inc. · <a href="#">Privacy</a> · <a href="#">Terms</a></p>-->
+    </footer></div><!-- /.container -->
+<!-- Bootstrap core JavaScript
+================================================== -->
+<!--&lt;!&ndash; Placed at the end of the document so the pages load faster &ndash;&gt;-->
+<!--<script src="https://cdn.bootcss.com/jquery/1.12.4/jquery.min.js"></script>-->
+<!--<script>window.jQuery || document.write('<script src="../../assets/js/vendor/jquery.min.js"><\/script>')</script>-->
+<!--<script src="https://cdn.bootcss.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>-->
+<!--&lt;!&ndash; Just to make our placeholder images work. Don't actually copy the next line! &ndash;&gt;-->
+<!--<script src="../../assets/js/vendor/holder.min.js"></script>-->
+<!--&lt;!&ndash; IE10 viewport hack for Surface/desktop Windows 8 bug &ndash;&gt;-->
+<!--<script src="../../assets/js/ie10-viewport-bug-workaround.js"></script>-->
+<svg xmlns="http://www.w3.org/2000/svg" width="500" height="500" viewBox="0 0 500 500" preserveAspectRatio="none" style="display: none; visibility: hidden; position: absolute; top: -100%; left: -100%;"><defs><style type="text/css"></style></defs><text x="0" y="25" style="font-weight:bold;font-size:25pt;font-family:Arial, Helvetica, Open Sans, sans-serif">500x500</text></svg></body>
 </html>
