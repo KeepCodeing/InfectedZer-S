@@ -32,6 +32,16 @@
     <!--各种杂乱代码-->
     <script src="http://1.magicweb.applinzi.com/file/BootsJS.js"></script>
     <!--<script src="BootsJS.js"></script>-->
+    <script>
+    $(function(){
+        var mouth=new Date().getMonth();
+            var mouth2=mouth+1;
+            $("#mouth").html(mouth2+"月...漫无止境");
+            $("#mouthtext").html("while(new Date.getMonth=="+mouth2+"){<br>\n" +
+                "                        document.write(\"这是一个没有目的的循环...\");<br>\n" +
+                "                        }");
+    });
+    </script>
 </head>
 <body>
 <div class="navbar-wrapper">
