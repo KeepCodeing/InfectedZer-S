@@ -48,10 +48,10 @@ window.onload=function () {
             color:"black"
         });
     })；
-     var mouth=new Date().getMonth();
-        console.log(mouth);
-        $("#mouth").html(mouth+"月...漫无止境");
-        $("#mouthtext").html("while(new Date.getMonth=="+mouth+"){<br>\n" +
-            "                        document.write(\"这是一个没有目的的循环...\");<br>\n" +
-            "                        }");
+      var mouth=new Date().getMonth();
+            var mouth2=mouth+1;
+            $("#mouth").html(mouth2+"月...漫无止境");
+            $("#mouthtext").html("while(new Date.getMonth=="+mouth2+"){<br>\n" +
+                "                        document.write(\"这是一个没有目的的循环...\");<br>\n" +
+                "                        }");
 };
