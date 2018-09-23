@@ -1,4 +1,4 @@
-window.onload=function () {
+$(function () {
     // 我说你小子偷看了我生成访问人数的方法了吧?
     function random() {
         var timeup=Math.random()*60+5000;
@@ -47,5 +47,5 @@ window.onload=function () {
         $(this).next("div").css({
             color:"black"
         });
-    })；
-};
+    })
+});
