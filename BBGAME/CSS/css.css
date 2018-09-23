@@ -1,0 +1,101 @@
+*{
+    margin: 0;
+    padding: 0;
+}
+body{
+    background: #000000;
+}
+.outbox{
+    margin: 150px auto;
+    height: 600px;
+    width: 1200px;
+    background: blue;
+    position: relative;
+    overflow: hidden;
+}
+.outbox>span{
+    position: absolute;
+    left: 400px;
+    top: 200px;
+    font-size: 80px;
+}
+.zz{
+    display: none;
+    background: black;
+    height: 100%;
+    width: 100%;
+}
+.end{
+    width: 100%;
+    background: black;
+    display: none;
+    text-align: center;
+    color: white;
+    position: absolute;
+    bottom: -545px;
+    height: 1145px;
+}
+.end>p{
+    line-height: 50px;
+    font-size: 20px;
+}
+.end>h1{
+    color: rgba(255, 145, 200, 0.7);
+}
+.start{
+    position: absolute;
+    bottom: 70px;
+    left: 70px;
+}
+.start>ul{
+    list-style: none;
+    font-size: 30px;
+    color: rgba(255,255,255,0.5);
+    line-height: 50px;
+}
+.start>ul>li:hover{
+    color: rgba(255,255,255,1);
+    cursor: pointer;
+}
+.msg{
+    display: none;
+    width: 100%;
+    height: 150px;
+    background: url("../BackGround/MsgBox.png") no-repeat 0 0;
+    position: absolute;
+    bottom: 0;
+    background-size: 100% 100%;
+}
+.name{
+    /*background: red;*/
+    display: inline-block;
+    height: 30px;
+    width: 180px;
+    position: absolute;
+    left: 50px;
+    top: 6px;
+    line-height: 30px;
+    font-size: 24px;
+    color: white;
+}
+.dialogue{
+    /*background: yellow;*/
+    height: 100px;
+    width: 100%;
+    position: absolute;
+    font-size: 20px;
+    line-height: 20px;
+    word-break: break-all;
+    top: 50px;
+    color: white;
+    text-indent: 15px;
+}
+.modal-body>ul{
+    list-style: none;
+    font-size: 20px;
+    cursor: pointer;
+}
+img{
+    position: absolute;
+    height: 300px;
+}
