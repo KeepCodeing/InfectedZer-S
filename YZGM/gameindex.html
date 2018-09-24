@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>GAME</title>
+    <script src="https://keepcodeing.github.io/InfectedZer-S/jquery.min.js"></script>
+    <style>
+        *{
+            margin: 0px;
+            padding: 0px;
+        }
+        .outbox{
+            position: relative;
+            background: black;
+            height: 500px;
+            width: 100%;
+            margin: 60px auto;
+        }
+        .ball{
+            position: absolute;
+            background: white;
+            height: 70px;
+            width: 70px;
+            border: 1px solid red;
+            border-radius: 50%;
+            top:100px;
+            left: 1000px;
+        }
+        .box{
+            position: absolute;
+            background: yellow;
+            height: 90px;
+            width: 90px;
+            top: 100px;
+        }
+    </style>
+    <script>
+        $(function () {
+            var boxpos=[];
+            var ballpos=[];
+            var $ball=$(".ball");
+            var $box=$(".box");
+            var flag=true;
+            //不断获取球体位置
+            var balltimer=setInterval(function () {
+                var a=$ball.position().left;
+                var b=$ball.position().top;
+                var c=$ball.width();
+                var d=$ball.height();
+
+                var ballright=a+c;//球体右边
+                var ballbottom=b+d;//球体底部
+                var balltop=b;//顶
+                var ballleft=a;//左
+
+                ballpos[0]=balltop;
+                ballpos[1]=ballbottom;
+                ballpos[2]=ballleft;
+                ballpos[3]=ballright;
+
+                $ball.css({
+                    left:a-1
+                });
+
+            },60);
+
+
+            //不断获取盒子位置
+            var boxtimer=setInterval(function () {
+                var e=$box.position().left;
+                var f=$box.position().top;
+                var g=$box.width();
+                var h=$box.height();
+
+                var boxleft=e;//左
+                var boxright=e+g;//盒子右边
+                var boxtop=f;//盒子顶部
+                var boxbottom=f+h;//底
+
+                boxpos[0]=boxtop;
+                boxpos[1]=boxbottom;
+                boxpos[2]=boxleft;
+                boxpos[3]=boxright;
+                deadcheck.check();
+            },60);
+
+            var key;
+            var deadcheck={
+                check:function  (){
+                    if(boxpos[0]<=ballpos[1]&&boxpos[1]>=ballpos[0]&&boxpos[2]<=ballpos[3]&&boxpos[3]>=ballpos[2]){
+                        alert("");
+                        clearInterval(boxtimer);
+                        clearInterval(balltimer);
+                        flag=false;
+                    }
+                    // //盒子下方碰到球上方
+                    // if(boxpos[1]<=ballpos[0]&&boxpos[2]>=ballpos[3]&&boxpos[3]>=ballpos[2]){
+                    //     alert("bottom");
+                    //     clearInterval(boxtimer);
+                    // }
+                    // //盒子左方碰到球右方
+                    // if(boxpos[2]<=ballpos[3]&&boxpos[0]>=ballpos[1]&&boxpos[1]<=ballpos[0]){
+                    //     alert("right");
+                    //     clearInterval(boxtimer);
+                    // }
+                    // //盒子右方碰到球左方
+                    // if(boxpos[3]>=ballpos[2]&&boxpos[0]>=ballpos[1]&&boxpos[1]<=ballpos[0]){
+                    //     alert("left");
+                    //     clearInterval(boxtimer);
+                    // }
+                }
+            };
+            var outcheck={
+                topout:function (){
+                    if(boxpos[0]<=0){
+                        $box.css({
+                            top:0
+                        });
+                    }
+                },
+                leftout:function () {
+                    if(boxpos[2]<=0){
+                        $box.css({
+                            left:0
+                        });
+                    }
+                },
+                rightout:function () {
+                    if(boxpos[2]>=1830){
+                        $box.css({
+                            left:1830
+                        });
+                    }
+                },
+                bottomout:function () {
+                    if(boxpos[0]>=410){
+                        $box.css({
+                            top:410
+                        });
+                    }
+                }
+
+            };
+            $(document).keydown(function (e) {
+                if(flag===true){
+                    key=e.keyCode;
+                    switch(key){
+                        case 87:
+                            $box.css({
+                                top:boxpos[0]-20
+                            });
+                            outcheck.topout();
+                            break;
+                        case 83:
+                            $box.css({
+                                top:boxpos[0]+20
+                            });
+                            outcheck.bottomout();
+                            break;
+                        case 65:
+                            $box.css({
+                                left:boxpos[2]-20
+                            });
+                            outcheck.leftout();
+                            break;
+                        case 68:
+                            $box.css({
+                                left:boxpos[2]+20
+                            });
+                            outcheck.rightout();
+                            break;
+                    }
+                }
+            })
+        });
+    </script>
+</head>
+
+<body>
+<div class="outbox">
+    <div class="ball"></div>
+    <div class="box"></div>
+</div>
+
+</body>
+</html>
