@@ -1,0 +1,267 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>记录</title>
+    <style>
+        *{
+            padding: 0px;
+            margin: 0px;
+        }
+        body{
+            text-align: center;
+        }
+        .banner{
+            height: 30px;
+            width: 900px;
+            background: black;
+            text-align: center;
+            display: inline-block;
+        }
+        .banner_text{
+            color: gray;
+            line-height: 30px;
+            vertical-align: middle;
+            font-family: "arial";
+            cursor: pointer;
+        }
+        .banner_text:hover{
+            color: white;
+        }
+        .message_list{
+            display: block;
+            width: 900px;
+            /*height: 500px;*/
+            /*border: 1px solid black;*/
+            /*border-top:none ;*/
+            background: darkblue;
+            margin: 0 auto;
+            list-style: none;
+        }
+        .list{
+            width: 100%;
+            height: 70px;
+            background: #faffb3;
+            position: relative;
+            overflow: hidden;
+            border-top: 1px solid black;
+        }
+        .msg{
+            position: absolute;
+            left: 10px;
+            top: 5px;
+            word-break: break-word;
+        }
+        .toggle{
+            position: absolute;
+            right: 10px;
+            top: 60%;
+            cursor: pointer;
+
+            overflow: hidden;
+        }
+        .time{
+            position: absolute;
+            left: 10px;
+            top: 75%;
+            font-size: 10px;
+            color: gray;
+        }
+        .dis_div{
+            width: 100%;
+            height: 100%;
+            display: none;
+            background: #a29c9b;
+            position: absolute;
+            line-height: 30px;
+            vertical-align: middle;
+            color: white;
+            cursor: pointer;
+        }
+        .dis_div:hover{
+            background: #d9ffee;
+            color: black;
+        }
+    </style>
+    <script>
+    window.onload=function () {
+        class MyQuery{
+            constructor(){
+                this.id=undefined;
+            }
+            GetId(id){
+                this.id=id;
+                this.el=document.getElementById(this.id);
+                return this;
+            }
+            SetText(text){
+                this.text=text;
+                this.el.innerText=this.text;
+            }
+            OnClick(fn){
+                this.click=fn;
+                if(this.el===null||this.el===undefined){
+                    console.log("未选择元素");
+                }else{
+                    this.el.onclick=this.click;
+                }
+            }
+            ClassQ(cs,index){
+                let cas;
+                this.cs=cs;
+                cas=document.getElementsByClassName(this.cs);
+                this.el=cas[index];
+                return this;
+            }
+            FadeIn(time, speed){
+                let id=this.el;
+                let op;
+                let dis;
+                if(speed===null||undefined){
+                    speed=0.1;
+                }
+                let timer=setInterval(function () {
+                    op=parseInt(getComputedStyle(id).opacity);
+                    dis=getComputedStyle(id).display;
+                    // console.log(op);
+                    if(dis==="none"){
+                        id.style.display="block";
+                    }
+                    if(op===0){
+                        op=1;
+                    }
+                    id.style.opacity=op+speed;
+                    if(op+speed>=1){
+                        clearInterval(timer);
+                    }
+                },time);
+            }
+            FadeOut(time, speed){
+                let id=this.el;
+                let op;
+                let dis;
+                if(speed===null||undefined){
+                    speed=0.1;
+                }
+                let timer=setInterval(function () {
+                    op=parseInt(getComputedStyle(id).opacity);
+                    dis=getComputedStyle(id).display;
+                    if(dis==="none"){
+                        id.style.display="block";
+                        id.style.opacity="0";
+                    }
+                    id.style.opacity=op-speed;
+                    if(op+speed<=0){
+                        clearInterval(timer);
+                    }
+                },time);
+            }
+            Up(time, speed){
+                this.time=time;
+                let id=this.el;
+                let faterHeight;
+                let fater;
+                if(speed===null||undefined){
+                    speed=10;
+                }
+                if(!isNaN(this.time)){
+                    let timer=setInterval(function () {
+                        id.style.display="none";
+                        fater=id.parentNode;
+                        faterHeight=parseInt(getComputedStyle(fater).height);
+                        fater.style.height=faterHeight-speed+"px";
+                        if(faterHeight-speed<=30){
+                            clearInterval(timer);
+                        }
+                    },this.time);
+                }else{
+                    console.log("不是数字");
+                }
+            }
+            Down(time, speed){
+                this.time=time;
+                let id=this.el;
+                let faterHeight;
+                let fater;
+                if(speed===null||undefined){
+                    speed=10;
+                }
+                if(!isNaN(this.time)){
+                    let timer=setInterval(function () {
+                        id.style.opacity="0";
+                        id.style.display="none";
+                        fater=id.parentNode;
+                        faterHeight=parseInt(getComputedStyle(fater).height);
+                        fater.style.height=faterHeight+speed+"px";
+                        if(faterHeight+speed>=70){
+                            clearInterval(timer);
+                        }
+                    },this.time);
+                }else{
+                    console.log("不是数字");
+                }
+            }
+        }
+        let Query=new MyQuery();
+        function toggleC(i){
+            Query.ClassQ("toggle",i).OnClick(function () {
+                Query.ClassQ("toggle",i).Up(15,1);
+                Query.ClassQ("dis_div",i).FadeIn(500,0.01);
+
+            });
+        }
+        function dis_divC(i){
+            Query.ClassQ("dis_div",i).OnClick(function () {
+                Query.ClassQ("dis_div",i).Down(15,1);
+                Query.ClassQ("toggle",i).FadeIn(500,0.11);
+            });
+        }
+        function appen(info) {
+            let box=Query.ClassQ("message_list",0);
+            let  child=document.createElement("li");
+            let childspan1=document.createElement("span");
+            let childspan2=document.createElement("span");
+            let childspan3=document.createElement("span");
+            let childspan4=document.createElement("span");
+            let childdiv=document.createElement("div");
+            box=box["el"];
+            child.setAttribute("class","list");
+            child.appendChild(childspan1).setAttribute("class","msg");
+            child.appendChild(childspan2).setAttribute("class","toggle");
+            child.appendChild(childspan3).setAttribute("class","time");
+            child.appendChild(childdiv).setAttribute("class","dis_div");
+            childdiv.appendChild(childspan4);
+            childspan1.innerText=info.MyMsg;
+            childspan2.innerText="Hide";
+            childspan3.innerText=info.time;
+            childspan4.innerText="一条被折叠，点击展开";
+            box.appendChild(child);
+        }
+        appen({
+            MyMsg:"2018年10月20日写出记录版页面",
+            time:"2018.10.20 18:02 武汉"
+        });
+        appen({
+            MyMsg:"没什么好些的，看看就行。原生JS任然不是很熟练...",
+            time:"2018.10.20 18:07 武汉"
+        });
+        function AllSet(){
+            let max=document.getElementsByClassName("list").length
+            for(let i=0;i<max;i++){
+                dis_divC(i);
+                toggleC(i);
+            }
+        }
+        AllSet();
+    }
+    </script>
+</head>
+<body>
+<div class="banner">
+    <span class="banner_text">It's not pain,it's just uncertainty，
+        I konw my heart's missing a piece，but it still beats.</span>
+</div>
+<ul class="message_list">
+</ul>
+</body>
+</html>
