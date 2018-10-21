@@ -31,9 +31,6 @@
         .message_list{
             display: block;
             width: 900px;
-            /*height: 500px;*/
-            /*border: 1px solid black;*/
-            /*border-top:none ;*/
             background: darkblue;
             margin: 0 auto;
             list-style: none;
@@ -89,15 +86,18 @@
             constructor(){
                 this.id=undefined;
             }
+            //通过ID获取元素
             GetId(id){
                 this.id=id;
                 this.el=document.getElementById(this.id);
                 return this;
             }
+            //设置元素文本
             SetText(text){
                 this.text=text;
                 this.el.innerText=this.text;
             }
+            //点击事件
             OnClick(fn){
                 this.click=fn;
                 if(this.el===null||this.el===undefined){
@@ -106,6 +106,7 @@
                     this.el.onclick=this.click;
                 }
             }
+            //通过Class获取元素
             ClassQ(cs,index){
                 let cas;
                 this.cs=cs;
@@ -113,6 +114,7 @@
                 this.el=cas[index];
                 return this;
             }
+            //渐入动画（有BUG）
             FadeIn(time, speed){
                 let id=this.el;
                 let op;
@@ -136,6 +138,7 @@
                     }
                 },time);
             }
+            //渐出动画
             FadeOut(time, speed){
                 let id=this.el;
                 let op;
@@ -156,6 +159,7 @@
                     }
                 },time);
             }
+            //上升动画
             Up(time, speed){
                 this.time=time;
                 let id=this.el;
@@ -178,6 +182,20 @@
                     console.log("不是数字");
                 }
             }
+            //设置元素背景
+            SetBackG(info){
+                let img=info.MyUrl;
+                let BgStyle=info.MyStyle;
+                let id=this.el;
+                id[0].style.background=img+"no-repeat 0 0";
+                id[0].style.backgroundSize=BgStyle;
+            }
+            //通过tag获取元素
+            GetTag(name){
+                this.el=document.getElementsByTagName(name);
+                return this;
+            }
+            //下滑动画
             Down(time, speed){
                 this.time=time;
                 let id=this.el;
@@ -202,22 +220,28 @@
                 }
             }
         }
-        let Query=new MyQuery();
+
+
+        let $=new MyQuery();//实例化
+        let BgSz=["./bg1.jpg","./bg2.jpg","./bg3.jpg","./bg4.jpg"];//存背景
+        //隐藏动画
         function toggleC(i){
-            Query.ClassQ("toggle",i).OnClick(function () {
-                Query.ClassQ("toggle",i).Up(15,1);
-                Query.ClassQ("dis_div",i).FadeIn(500,0.01);
+            $.ClassQ("toggle",i).OnClick(function () {
+                $.ClassQ("toggle",i).Up(15,1);
+                $.ClassQ("dis_div",i).FadeIn(500,0.01);
 
             });
         }
+        //显示动画
         function dis_divC(i){
-            Query.ClassQ("dis_div",i).OnClick(function () {
-                Query.ClassQ("dis_div",i).Down(15,1);
-                Query.ClassQ("toggle",i).FadeIn(500,0.11);
+            $.ClassQ("dis_div",i).OnClick(function () {
+                $.ClassQ("dis_div",i).Down(15,1);
+                $.ClassQ("toggle",i).FadeIn(500,0.11);
             });
         }
+        //动态添加li和里面的内容
         function appen(info) {
-            let box=Query.ClassQ("message_list",0);
+            let box=$.ClassQ("message_list",0);
             let  child=document.createElement("li");
             let childspan1=document.createElement("span");
             let childspan2=document.createElement("span");
@@ -245,6 +269,11 @@
             MyMsg:"没什么好些的，看看就行。原生JS任然不是很熟练...",
             time:"2018.10.20 18:07 武汉"
         });
+        appen({
+           MyMsg:"十月十九日U盘被摔成磁盘，所幸大部分数据已被恢复。毫无笋丝....",
+           time:"2018.10.20 10:39 武汉"
+        });
+        //设置li的JS
         function AllSet(){
             let max=document.getElementsByClassName("list").length
             for(let i=0;i<max;i++){
@@ -252,7 +281,39 @@
                 toggleC(i);
             }
         }
+        //设置背景图片
+        function SetBackGround(info){
+            $.GetTag(info.el).SetBackG({
+                MyUrl:"url("+info.url+")",
+                MyStyle:info.MyStyle
+            });
+        }
+        SetBackGround({
+            el:"body",
+           url:"./bg4.jpg",
+           MyStyle:"cover"
+        });
+        //定时切换背景图片
+        function SwitchBg(speed){
+            let i=1;
+            let max=BgSz.length;
+            let timer=setInterval(()=>{
+                if(i>=max){
+                    i=0;
+                }else{
+                    SetBackGround({
+                        el:"body",
+                        url:BgSz[i],
+                        MyStyle:"cover"
+                    });
+                    i++;
+                }
+            },speed);
+        }
+        //设置所有li的JS代码
         AllSet();
+        //切换图片
+        // SwitchBg(5000);
     }
     </script>
 </head>
