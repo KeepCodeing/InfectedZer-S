@@ -37,44 +37,55 @@
         }
         .list{
             width: 100%;
-            height: 70px;
             background: #faffb3;
             position: relative;
             overflow: hidden;
             border-top: 1px solid black;
         }
+        .div_box{
+            text-align: start;
+            width: 100%;
+        }
         .msg{
-            position: absolute;
-            left: 10px;
-            top: 5px;
+            /*position: absolute;*/
+            /*left: 10px;*/
+            /*top: 5px;*/
             word-break: break-word;
             text-align:left;
+            display: block;
+            margin-top: 5px;
+            margin-left: 10px;
+            min-height: 50px;
+            margin-bottom: 5px;
         }
         .toggle{
             position: absolute;
             right: 10px;
-            top: 60%;
+            /*top: 70%;*/
             cursor: pointer;
-
             overflow: hidden;
+            bottom: 5px;
         }
         .time{
-            position: absolute;
-            left: 10px;
-            top: 75%;
+            /*position: absolute;*/
+            /*left: 10px;*/
+            /*top: 75%;*/
             font-size: 10px;
             color: gray;
+            margin-left: 10px;
         }
         .dis_div{
+            position: absolute;
+            top: 0px;
             width: 100%;
             height: 100%;
             display: none;
             background: #a29c9b;
-            position: absolute;
             line-height: 30px;
             vertical-align: middle;
             color: white;
             cursor: pointer;
+
         }
         .dis_div:hover{
             background: #d9ffee;
@@ -82,264 +93,294 @@
         }
     </style>
     <script>
-    window.onload=function () {
-        class MyQuery{
-            constructor(){
-                this.id=undefined;
-            }
-            //通过ID获取元素
-            GetId(id){
-                this.id=id;
-                this.el=document.getElementById(this.id);
-                return this;
-            }
-            //设置元素文本
-            SetText(text){
-                this.text=text;
-                this.el.innerText=this.text;
-            }
-            //点击事件
-            OnClick(fn){
-                this.click=fn;
-                if(this.el===null||this.el===undefined){
-                    console.log("未选择元素");
-                }else{
-                    this.el.onclick=this.click;
+        window.onload=function () {
+            class MyQuery{
+                constructor(){
+                    this.id=undefined;
+                    this.liHeight=undefined;
+                    // this.MyStyle=undefined;
                 }
-            }
-            //通过Class获取元素
-            ClassQ(cs,index){
-                let cas;
-                this.cs=cs;
-                cas=document.getElementsByClassName(this.cs);
-                this.el=cas[index];
-                return this;
-            }
-            //渐入动画（有BUG）
-            FadeIn(time, speed){
-                let id=this.el;
-                let op;
-                let dis;
-                if(speed===null||undefined){
-                    speed=0.1;
+                //通过ID获取元素
+                GetId(id){
+                    this.id=id;
+                    this.el=document.getElementById(this.id);
+                    return this;
                 }
-                let timer=setInterval(function () {
-                    op=parseInt(getComputedStyle(id).opacity);
-                    dis=getComputedStyle(id).display;
-                    // console.log(op);
-                    if(dis==="none"){
-                        id.style.display="block";
-                    }
-                    if(op===0){
-                        op=1;
-                    }
-                    id.style.opacity=op+speed;
-                    if(op+speed>=1){
-                        clearInterval(timer);
-                    }
-                },time);
-            }
-            //渐出动画
-            FadeOut(time, speed){
-                let id=this.el;
-                let op;
-                let dis;
-                if(speed===null||undefined){
-                    speed=0.1;
+                //设置元素文本
+                SetText(text){
+                    this.text=text;
+                    this.el.innerText=this.text;
                 }
-                let timer=setInterval(function () {
-                    op=parseInt(getComputedStyle(id).opacity);
-                    dis=getComputedStyle(id).display;
-                    if(dis==="none"){
-                        id.style.display="block";
-                        id.style.opacity="0";
+                //点击事件
+                OnClick(fn){
+                    this.click=fn;
+                    if(this.el===null||this.el===undefined){
+                        console.log("未选择元素");
+                    }else{
+                        this.el.onclick=this.click;
                     }
-                    id.style.opacity=op-speed;
-                    if(op+speed<=0){
-                        clearInterval(timer);
-                    }
-                },time);
-            }
-            //上升动画
-            Up(time, speed){
-                this.time=time;
-                let id=this.el;
-                let faterHeight;
-                let fater;
-                if(speed===null||undefined){
-                    speed=10;
                 }
-                if(!isNaN(this.time)){
+                //通过Class获取元素
+                ClassQ(cs,index){
+                    let cas;
+                    this.cs=cs;
+                    cas=document.getElementsByClassName(this.cs);
+                    this.el=cas[index];
+                    return this;
+                }
+                //渐入动画（有BUG）
+                FadeIn(time, speed){
+                    let id=this.el;
+                    let op;
+                    let dis;
+                    if(speed===null||undefined){
+                        speed=0.1;
+                    }
                     let timer=setInterval(function () {
-                        id.style.display="none";
-                        fater=id.parentNode;
-                        faterHeight=parseInt(getComputedStyle(fater).height);
-                        fater.style.height=faterHeight-speed+"px";
-                        if(faterHeight-speed<=30){
+                        op=parseInt(getComputedStyle(id).opacity);
+                        dis=getComputedStyle(id).display;
+                        // console.log(op);
+                        if(dis==="none"){
+                            id.style.display="block";
+                        }
+                        if(op===0){
+                            op=1;
+                        }
+                        id.style.opacity=op+speed;
+                        if(op+speed>=1){
                             clearInterval(timer);
                         }
-                    },this.time);
-                }else{
-                    console.log("不是数字");
+                    },time);
                 }
-            }
-            //设置元素背景
-            SetBackG(info){
-                let img=info.MyUrl;
-                let BgStyle=info.MyStyle;
-                let id=this.el;
-                id[0].style.background=img+"no-repeat 0 0";
-                id[0].style.backgroundSize=BgStyle;
-            }
-            //通过tag获取元素
-            GetTag(name){
-                this.el=document.getElementsByTagName(name);
-                return this;
-            }
-            //下滑动画
-            Down(time, speed){
-                this.time=time;
-                let id=this.el;
-                let faterHeight;
-                let fater;
-                if(speed===null||undefined){
-                    speed=10;
-                }
-                if(!isNaN(this.time)){
+                //渐出动画
+                FadeOut(time, speed){
+                    let id=this.el;
+                    let op;
+                    let dis;
+                    if(speed===null||undefined){
+                        speed=0.1;
+                    }
                     let timer=setInterval(function () {
-                        id.style.opacity="0";
-                        id.style.display="none";
-                        fater=id.parentNode;
-                        faterHeight=parseInt(getComputedStyle(fater).height);
-                        fater.style.height=faterHeight+speed+"px";
-                        if(faterHeight+speed>=70){
+                        op=parseInt(getComputedStyle(id).opacity);
+                        dis=getComputedStyle(id).display;
+                        if(dis==="none"){
+                            id.style.display="block";
+                            id.style.opacity="0";
+                        }
+                        id.style.opacity=op-speed;
+                        if(op+speed<=0){
                             clearInterval(timer);
                         }
-                    },this.time);
-                }else{
-                    console.log("不是数字");
+                    },time);
+                }
+                //上升动画
+                Up(time, speed){
+                    this.time=time;
+                    let id=this.el;
+                    let faterHeight;
+                    let fater=id.parentNode.parentNode;
+                    this.liHeight=parseInt(getComputedStyle(fater).height);
+                    if(speed===null||undefined){
+                        speed=10;
+                    }
+                    if(!isNaN(this.time)){
+                        let timer=setInterval(function () {
+                            id.style.display="none";
+                            fater=id.parentNode.parentNode;
+                            faterHeight=parseInt(getComputedStyle(fater).height);
+                            fater.style.height=faterHeight-speed+"px";
+                            if(faterHeight-speed<=30){
+                                clearInterval(timer);
+                            }
+                        },this.time);
+                    }else{
+                        console.log("不是数字");
+                    }
+                }
+                //设置元素背景
+                SetBackG(info){
+                    let img=info.MyUrl;
+                    let BgStyle=info.MyStyle;
+                    let id=this.el;
+                    id[0].style.background=img+"no-repeat 0 0";
+                    id[0].style.backgroundSize=BgStyle;
+                }
+                //通过tag获取元素
+                GetTag(name){
+                    this.el=document.getElementsByTagName(name);
+                    return this;
+                }
+                //下滑动画
+                Down(time, speed){
+                    this.time=time;
+                    let id=this.el;
+                    let faterHeight;
+                    let fater;
+                    let liheight=this.liHeight;
+                    if(speed===null||undefined){
+                        speed=10;
+                    }
+                    if(!isNaN(this.time)){
+                        let timer=setInterval(function () {
+                            id.style.opacity="0";
+                            id.style.display="none";
+                            fater=id.parentNode;
+                            faterHeight=parseInt(getComputedStyle(fater).height);
+                            fater.style.height=faterHeight+speed+"px";
+                            if(faterHeight+speed>=liheight){
+                                clearInterval(timer);
+                            }
+                        },this.time);
+                    }else{
+                        console.log("不是数字");
+                    }
+                }
+
+            }
+
+
+            let $=new MyQuery();//实例化
+            let BgSz=["./bg1.jpg","./bg2.jpg","./bg3.jpg","https://keepcodeing.github.io/InfectedZer-S/Img/bg4.jpg"];//存背景
+            //初始化toggle位置
+            function togglePos(i) {
+                //获取样式方法写不出来，我暂且蒙在鼓里
+                //无需设置top属性，只需设置bottom属性
+                let height=document.getElementsByClassName("list");
+                let t=document.getElementsByClassName("toggle");
+                t[i].style.top=parseInt(getComputedStyle(height[i]).height)*0.7+"px";
+            }
+            //隐藏动画
+            function toggleC(i){
+                $.ClassQ("toggle",i).OnClick(function () {
+                    $.ClassQ("toggle",i).Up(5,1);
+                    $.ClassQ("dis_div",i).FadeIn(5,0.01);
+
+                });
+            }
+            //显示动画
+            function dis_divC(i){
+                $.ClassQ("dis_div",i).OnClick(function () {
+                    $.ClassQ("dis_div",i).Down(5,1);
+                    $.ClassQ("toggle",i).FadeIn(5,0.11);
+                });
+            }
+            //动态添加li和里面的内容
+            function appen(info) {
+                let box=$.ClassQ("message_list",0);
+                let  child=document.createElement("li");
+                let childspan1=document.createElement("span");
+                let childspan2=document.createElement("span");
+                let childspan3=document.createElement("span");
+                let childspan4=document.createElement("span");
+                let childdiv=document.createElement("div");
+                let divbox=document.createElement("div");
+                box=box["el"];
+                child.setAttribute("class","list");
+                child.appendChild(childspan1).setAttribute("class","msg");
+                divbox.appendChild(childspan3).setAttribute("class","time");
+                divbox.appendChild(childspan2).setAttribute("class","toggle");
+                child.appendChild(childdiv).setAttribute("class","dis_div");
+                childdiv.appendChild(childspan4);
+                divbox.setAttribute("class","div_box");
+                child.appendChild(divbox);
+
+                childspan1.innerText=info.MyMsg;
+                childspan2.innerText="Hide";
+                childspan3.innerText=info.time;
+                childspan4.innerText="一条被折叠，点击展开";
+                box.appendChild(child);
+            }
+            appen({
+                MyMsg:"2018年10月20日写出记录版页面",
+                time:"2018.10.20 18:02 武汉"
+            });
+            appen({
+                MyMsg:"没什么好写的，看看就行。原生JS任然不是很熟练...",
+                time:"2018.10.20 18:07 武汉"
+            });
+            appen({
+                MyMsg:"十月十九日U盘被摔成磁盘，所幸大部分数据已被恢复。毫无笋丝....",
+                time:"2018.10.20 10:39 武汉"
+            });
+            appen({
+                MyMsg:"今天也是好天气！一如既往的无聊和迷茫...唯一的目标是本科，当前的目标是前三。如果不付出相应的努力，这些都是空想...",
+                time:"2018.10.26 14:30 武汉"
+            });
+            appen({
+                MyMsg:"折腾了无数次的播放器还是活过来了，但U盘貌似无法识别60帧视频了...",
+                time:"2018.10.26 14:33 武汉"
+            });
+            appen({
+                MyMsg:"今天上午配眼镜，左眼100度+，右眼90度+。此为记录，我们明年再见！",
+                time:"2018.10.27 19:08 武汉"
+            });
+            appen({
+                MyMsg:"昨天搞了很长时间的float属性原来是不能从父元素继承的。例如给一个块级元素设置了float"+
+                    ""+"属性其作用只会对次块级元素，而里面的子元素不受float的影响",
+                time:"2018.10.28 10:38 武汉"
+            });
+            appen({
+                MyMsg:"星期五购买FarCry3加DLC，花费118.12...DLC暂未发现时什么...均以星期五晚上解决无法收礼问题，星期六安装FarCry3。经过重新安装三次，"+
+                    "均以权限不足失败..因为土豆糟糕的服务器，直到我重装系统前都以为只土豆的BUG...具体问题流程如下：收礼失败->启动提示没权限->重新安装3次->"+
+                    "->不断百度方法->重装系统->能启动但闪退->显卡驱动有问题->打算安装旧版本驱动但回想起安装新驱动未生效->重启电脑->解决问题...第一次因为"+
+                    "游戏花这么长时间...其他:IG战队于2018.11.4以3:0击败FNC夺到了LOL世界冠军",
+                time:"2018.11.5 17:20 武汉>学校"
+            });
+            appen({
+               MyMsg:"终于把记录页功能全部完善了，呜哇，累死我啦...写网页什么的都不想搞了啦...具体完善了消息过长导致"+
+                   "span、li等标签出现布局错误...你是一个一个一个一个一个一个一个一个一个一个一个一个一个一个一个一个"+"" +
+                   "一个一个一个一个一个一个一个一个一个一个一个一个一个一个一个一个一个一个一个一个一个一个一个一个一个一个"+"" +
+                   "一个一个一个一个一个一个一个一个一个一个一个一个一个一个一个一个一个一个一个一个一个一个一个一个一个一个一个一个一个一个"+"" +
+                   "一个一个一个一个一个一个一个一个一个一个一个一个一个一个一个一个一个一个一个一个一个一个一个一个一个一个一个一个一个一个"+"" +
+                   "一个一个一个一个一个一个一个一个一个一个一个一个一个一个一个一个一个一个一个一个一个一个一个一个一个一个一个一个一个一个一个一个"+"" +
+                   "一个一个一个一个一个一个一个一个一个一个一个一个一个一个一个一个一个一个一个一个一个一个一个一个一个一个一个一个一个一个一个一个"+"" +
+                   "....消息再长也不会出现布局错误的元素啊（虚心）",
+               time:"2018 11.11 12:57 武汉"
+
+            });
+            //设置li的JS
+            function AllSet(){
+                let max=document.getElementsByClassName("list").length;
+                for(let i=0;i<max;i++){
+                    dis_divC(i);
+                    toggleC(i);
+                    // togglePos(i);
                 }
             }
-        }
-
-
-        let $=new MyQuery();//实例化
-        let BgSz=["./bg1.jpg","./bg2.jpg","./bg3.jpg","https://keepcodeing.github.io/InfectedZer-S/Img/bg4.jpg"];//存背景
-        //隐藏动画
-        function toggleC(i){
-            $.ClassQ("toggle",i).OnClick(function () {
-                $.ClassQ("toggle",i).Up(15,1);
-                $.ClassQ("dis_div",i).FadeIn(500,0.01);
-
-            });
-        }
-        //显示动画
-        function dis_divC(i){
-            $.ClassQ("dis_div",i).OnClick(function () {
-                $.ClassQ("dis_div",i).Down(15,1);
-                $.ClassQ("toggle",i).FadeIn(500,0.11);
-            });
-        }
-        //动态添加li和里面的内容
-        function appen(info) {
-            let box=$.ClassQ("message_list",0);
-            let  child=document.createElement("li");
-            let childspan1=document.createElement("span");
-            let childspan2=document.createElement("span");
-            let childspan3=document.createElement("span");
-            let childspan4=document.createElement("span");
-            let childdiv=document.createElement("div");
-            box=box["el"];
-            child.setAttribute("class","list");
-            child.appendChild(childspan1).setAttribute("class","msg");
-            child.appendChild(childspan2).setAttribute("class","toggle");
-            child.appendChild(childspan3).setAttribute("class","time");
-            child.appendChild(childdiv).setAttribute("class","dis_div");
-            childdiv.appendChild(childspan4);
-            childspan1.innerText=info.MyMsg;
-            childspan2.innerText="Hide";
-            childspan3.innerText=info.time;
-            childspan4.innerText="一条被折叠，点击展开";
-            box.appendChild(child);
-        }
-        appen({
-            MyMsg:"2018年10月20日写出记录版页面",
-            time:"2018.10.20 18:02 武汉"
-        });
-        appen({
-            MyMsg:"没什么好些的，看看就行。原生JS任然不是很熟练...",
-            time:"2018.10.20 18:07 武汉"
-        });
-        appen({
-           MyMsg:"十月十九日U盘被摔成磁盘，所幸大部分数据已被恢复。毫无笋丝....",
-           time:"2018.10.20 10:39 武汉"
-        });
-        appen({
-            MyMsg:"今天也是好天气！一如既往的无聊和迷茫...唯一的目标是本科，当前的目标是前三。如果不付出相应的努力，这些都是空想...",
-            time:"2018.10.26 14:30 武汉"
-        });
-        appen({
-            MyMsg:"折腾了无数次的播放器还是活过来了，但U盘貌似无法识别60帧视频了...",
-            time:"2018.10.26 14:33 武汉"
-        });
-        appen({
-            MyMsg:"今天上午配眼镜，左眼100度+，右眼90度+。此为记录，我们明年再见！",
-            time:"2018.10.27 19:08 武汉"
-        });
-        appen({
-            MyMsg:"昨天搞了很长时间的float属性原来是不能从父元素继承的。例如给一个块级元素设置了float"+
-            ""+"属性其作用只会对次块级元素，而里面的子元素不受float的影响",
-            time:"2018.10.28 10:38 武汉"
-        });
-        appen({
-            MyMsg:"星期五购买FarCry3加DLC，花费118.12...DLC暂未发现时什么...均以星期五晚上解决无法收礼问题，星期六安装FarCry3。经过重新安装三次，"+
-            "均以权限不足失败..因为土豆糟糕的服务器，直到我重装系统前都以为只土豆的BUG...具体问题流程如下：收礼失败->启动提示没权限->重新安装3次->"+
-            "->不断百度方法->重装系统->能启动但闪退->显卡驱动有问题->打算安装旧版本驱动但回想起安装新驱动未生效->重启电脑->解决问题...第一次因为"+
-            "游戏花这么长时间...其他:IG战队于2018.11.4以3:0击败FNC夺到了LOL世界冠军",
-            time:"2018.11.5 17:20 武汉>学校"
-        });
-        //设置li的JS
-        function AllSet(){
-            let max=document.getElementsByClassName("list").length
-            for(let i=0;i<max;i++){
-                dis_divC(i);
-                toggleC(i);
+            //设置背景图片
+            function SetBackGround(info){
+                $.GetTag(info.el).SetBackG({
+                    MyUrl:"url("+info.url+")",
+                    MyStyle:info.MyStyle
+                });
             }
-        }
-        //设置背景图片
-        function SetBackGround(info){
-            $.GetTag(info.el).SetBackG({
-                MyUrl:"url("+info.url+")",
-                MyStyle:info.MyStyle
+            SetBackGround({
+                el:"body",
+                url:BgSz[3],
+                MyStyle:"cover"
             });
+            //定时切换背景图片
+            function SwitchBg(speed){
+                let i=1;
+                let max=BgSz.length;
+                let timer=setInterval(()=>{
+                    if(i>=max){
+                        i=0;
+                    }else{
+                        SetBackGround({
+                            el:"body",
+                            url:BgSz[i],
+                            MyStyle:"cover"
+                        });
+                        i++;
+                    }
+                },speed);
+            }
+            //设置所有li的JS代码
+            AllSet();
+            //切换图片
+            // SwitchBg(5000);
         }
-        SetBackGround({
-            el:"body",
-           url:BgSz[3],
-           MyStyle:"cover"
-        });
-        //定时切换背景图片
-        function SwitchBg(speed){
-            let i=1;
-            let max=BgSz.length;
-            let timer=setInterval(()=>{
-                if(i>=max){
-                    i=0;
-                }else{
-                    SetBackGround({
-                        el:"body",
-                        url:BgSz[i],
-                        MyStyle:"cover"
-                    });
-                    i++;
-                }
-            },speed);
-        }
-        //设置所有li的JS代码
-        AllSet();
-        //切换图片
-        // SwitchBg(5000);
-    }
     </script>
 </head>
 <body>
