@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <link rel="icon" type="image/x-icon" href="https://keepcodeing.github.io/InfectedZer-S/ImgBroad/Lucy.png" />
+    <title>图板</title>
+    <style>
+        *{
+            margin: 0px;
+            padding: 0px;
+        }
+        body{
+            background: url("https://keepcodeing.github.io/InfectedZer-S/ImgBroad/background.png") no-repeat 0 0;
+            background-size: cover;
+        }
+        .Broad{
+            height: 100%;
+            width: 100%;
+            overflow: hidden;
+        }
+        .Broad>img{
+            height: 300px;
+            float: left;
+            cursor: pointer;
+            border: 1px solid #ffe900;
+        }
+        .info{
+            background: black;
+            height: 60px;
+            width: 400px;
+            border-radius: 10px;
+            position: fixed;
+            margin:auto;
+            left:0;
+            right:0;
+            top:90%;
+            bottom:0;
+            line-height: 60px;
+            vertical-align: middle;
+            text-align: center;
+            color: white;
+            font-family: '黑体';
+            display: none;
+        }
+    </style>
+    <script>
+    window.onload=function () {
+        let ImgName=[];
+        let Img=[];
+        let hour=[];
+        let AllImg=document.getElementById("Broad").children;
+        let info=document.getElementById("info");
+        ImgName.push("Lucy","Bnkrg");
+        hour.push("4","4.5");
+        for(let i=0;i<ImgName.length;i++){
+            Img.push("https://keepcodeing.github.io/InfectedZer-S/ImgBroad/"+ImgName[i]+".png");
+            AllImg[i].setAttribute("src",Img[i]);
+            AllImg[i].onmouseenter=function () {
+                info.style.display="block";
+                info.innerHTML="作品名称:"+ImgName[i]+'&nbsp;&nbsp;&nbsp;&nbsp;'+"耗时:"+hour[i]+"小时或更多";
+            };
+            AllImg[i].onmouseout=function () {
+                info.style.display="none";
+                info.innerText="";
+            }
+        }
+    }
+    </script>
+</head>
+<body>
+<div class="Broad" id="Broad">
+    <img src="" alt="" class="src">
+    <img src="" alt="" class="src">
+    <div class="info" id="info"></div>
+</div>
+</body>
+</html>
