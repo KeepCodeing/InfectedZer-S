@@ -48,18 +48,25 @@
         let ImgName=[];
         let Img=[];
         let hour=[];
-        let AllImg=document.getElementById("Broad").children;
+        let ImgAdd;
+        let AllImg=document.getElementById("Broad");
         let info=document.getElementById("info");
         ImgName.push("Lucy","Bnkrg","hjy");
         hour.push("4","4.5","2");
+
+        function AddImg(src) {
+            ImgAdd=document.createElement("img");
+            ImgAdd.setAttribute("src",src);
+            AllImg.appendChild(ImgAdd);
+        }
         for(let i=0;i<ImgName.length;i++){
             Img.push("https://keepcodeing.github.io/InfectedZer-S/ImgBroad/"+ImgName[i]+".png");
-            AllImg[i].setAttribute("src",Img[i]);
-            AllImg[i].onmouseenter=function () {
+            AddImg(Img[i]);
+            AllImg.children[i+1].onmouseenter=function () {
                 info.style.display="block";
                 info.innerHTML="作品名称:"+ImgName[i]+'&nbsp;&nbsp;&nbsp;&nbsp;'+"耗时:"+hour[i]+"小时或更多";
             };
-            AllImg[i].onmouseout=function () {
+            AllImg.children[i+1].onmouseout=function () {
                 info.style.display="none";
                 info.innerText="";
             }
@@ -69,8 +76,6 @@
 </head>
 <body>
 <div class="Broad" id="Broad">
-    <img src="" alt="" class="src">
-    <img src="" alt="" class="src">
     <div class="info" id="info"></div>
 </div>
 </body>
