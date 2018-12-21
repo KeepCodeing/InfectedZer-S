@@ -42,44 +42,235 @@
             font-family: '黑体';
             display: none;
         }
+        .tool{
+            position: fixed;
+            right: 10px;
+            top: 10px;
+            background: white;
+            /*height: 100px;*/
+            /*width: 50px;*/
+        }
+        .tool_list{
+            list-style: none;
+            color: #ffc000;
+            font-size: 15px;
+            border: 1px solid gray;
+            //border-top: none;
+        }
+        .tool_list>li{
+            cursor: pointer;
+            margin: 5px;
+            text-align: center;
+            line-height: 20px;
+            vertical-align: middle;
+            border-bottom: 1px solid gray;
+        }
+        .ppt_box{
+            height: 100%;
+            width: 100%;
+            background: black;
+            opacity: 0.8;
+            position: fixed;
+            top: 0;
+            display: none;
+            text-align: center;
+        }
+        .ppt_img{
+            width: 80%;
+           /*background: #ffe900;*/
+            margin:auto;
+            left:0;
+            right:0;
+            top: 0;
+            bottom:0;
+            position: fixed;
+            display: none;
+            text-align: center;
+        }
+        .ppt_img>span{
+            position: absolute;
+            margin: 10px;
+            color: #f9f9ff;
+            font-size: 15px;
+            cursor: pointer;
+        }
+        .ppt_img>#ppt_left{
+            bottom: 0;
+            left: 0;
+        }
+        .ppt_img>#ppt_right{
+            bottom: 0;
+            right: 0;
+        }
+        .ppt_img>#ppt_exit{
+            top: 0;
+            left: 0;
+        }
+        .ppt_img>#ppt_auto{
+            top: 0;
+            right: 0;
+        }
     </style>
     <script>
-    window.onload=function () {
-        let ImgName=[];
-        let Img=[];
-        let hour=[];
-        let ImgAdd;
-        let AllImg=document.getElementById("Broad");
-        let info=document.getElementById("info");
-        ImgName.push("Lucy","Bnkrg","hjy","udk-02","hnsalc-02-01");
-        hour.push("4","4.5","2","6","7");
-
-        function AddImg(src) {
-            ImgAdd=document.createElement("img");
-            ImgAdd.setAttribute("src",src);
-            AllImg.appendChild(ImgAdd);
-        }
-        for(let i=0;i<ImgName.length;i++){
-            Img.push("https://keepcodeing.github.io/InfectedZer-S/ImgBroad/"+ImgName[i]+".png");
-            AddImg(Img[i]);
-            AllImg.children[i+1].onmouseenter=function () {
-                info.style.display="block";
-                info.innerHTML="作品名称:"+ImgName[i]+'&nbsp;&nbsp;&nbsp;&nbsp;'+"耗时:"+hour[i]+"小时或更多";
-            };
-            AllImg.children[i+1].onmouseout=function () {
-                info.style.display="none";
-                info.innerText="";
+        window.onload=function () {
+            class list_item{
+                constructor(){
+                    this.item=document.getElementsByClassName("tool_list")[0].children;
+                    this.boxP=document.getElementsByClassName("ppt_img")[0];
+                    this.maskP=document.getElementsByClassName("ppt_box")[0];
+                    this.ppt_img=document.getElementsByClassName("ppt_img")[0];
+                    this.exitP=document.getElementById("ppt_exit");
+                    this.autoP=document.getElementById("ppt_auto");
+                    this.leftP=document.getElementById("ppt_left");
+                    this.rightP=document.getElementById("ppt_right");
+                    this.im=[];
+                    this.count=0;
+                }
+                Bclick(ImgName){
+                    this.item[0].onclick=function () {
+                        new list_item().start(ImgName);
+                    }
+                    // for(let i=0;i<this.item.length;i++){
+                    //     this.item[i].onclick=function () {
+                    //         switch (i) {
+                    //             case 0:
+                    //
+                    //                 break;
+                    //             case 1:
+                    //
+                    //                 break;
+                    //         }
+                    //     }
+                    // }
+                }
+                start(ImgName){
+                    let len=ImgName.length;
+                    let img=this.ppt_img;
+                    let count=this.count;
+                    let im=[];
+                    let timer;
+                    for(let i=0;i<len;i++){
+                        this.im[i]=ImgName[i];
+                        im[i]=ImgName[i];
+                    }
+                    this.maskP.style.display="block";
+                    this.boxP.style.display="block";
+                    img.style.background='url("https://keepcodeing.github.io/InfectedZer-S/ImgBroad/'+this.im[count]+'.png") no-repeat';
+                    img.style.backgroundSize="950px";
+                    img.style.backgroundPosition="center";
+                    function set() {
+                        img.style.background='url("https://keepcodeing.github.io/InfectedZer-S/ImgBroad/'+im[count]+'.png") no-repeat';
+                        img.style.backgroundSize="950px";
+                        img.style.backgroundPosition="center";
+                    }
+                    //---------------定义上一张、下一张点击效果---------------
+                    this.leftP.onclick=function () {
+                        if(count<len&&count>0){
+                            count--;
+                        }else if(count>len){
+                            count=0;
+                        }else if(count<=0){
+                            count=len-1;
+                        }
+                        set();
+                    };
+                    this.rightP.onclick=function () {
+                        if(count<len-1&&count>=0){
+                            count++;
+                        }else if(count>=len-1){
+                            count=0;
+                        }
+                        set();
+                    };
+                    //----------------定义退出、自动播放、暂停等点击效果-----------------
+                    this.exitP.onclick=function () {
+                        new list_item().exit(timer);
+                    };
+                    this.autoP.onclick=function () {
+                        timer=setInterval(function () {
+                             new list_item().auto();
+                        },3000);
+                    }
+                }
+                auto(){
+                    let right=this.rightP;
+                    let e = document.createEvent("MouseEvents");
+                    e.initEvent("click", true, true);
+                    right.dispatchEvent(e);
+                }
+                exit(t){
+                    this.maskP.style.display="none";
+                    this.boxP.style.display="none";
+                    clearInterval(t);
+                }
             }
-             AllImg.children[i+1].onclick=function () {
+            let ImgName=[];
+            let Img=[];
+            let hour=[];
+            let ImgAdd;
+            let ItemAdd;
+            let AllImg=document.getElementById("Broad");
+            let info=document.getElementById("info");
+            let $=new list_item();              //初始化类
+            ImgName.push("Lucy","Bnkrg","hjy","udk-02","hnsalc-02-01");
+            hour.push("4","4.5","2","6","7");
+            $.Bclick(ImgName);                           //调用方法
+            function AddImg(src) {
+                ImgAdd=document.createElement("img");
+                ImgAdd.setAttribute("src",src);
+                AllImg.appendChild(ImgAdd);
+            }
+            function AddItem(ImgName) {
+                let tool_list=document.getElementsByClassName("tool_list")[0];
+                for(let i in ImgName){
+                    ItemAdd=document.createElement("li");
+                    ItemAdd.innerText=ImgName[i];
+                    ItemAdd.style.color="red";
+                    ItemAdd.style.fontStyle="italic";
+                    ItemAdd.onclick=function(){
+                        window.open("https://keepcodeing.github.io/InfectedZer-S/ImgBroad/"+ImgName[i]+".png");
+                    };
+                    tool_list.appendChild(ItemAdd);
+
+                }
+            }
+            AddItem(ImgName);
+            for(let i=0;i<ImgName.length;i++){
+                Img.push("https://keepcodeing.github.io/InfectedZer-S/ImgBroad/"+ImgName[i]+".png");
+                AddImg(Img[i]);
+                AllImg.children[i+1].onmouseenter=function () {
+                    info.style.display="block";
+                    info.innerHTML="作品名称:"+ImgName[i]+'&nbsp;&nbsp;&nbsp;&nbsp;'+"耗时:"+hour[i]+"小时或更多";
+                };
+                AllImg.children[i+1].onmouseout=function () {
+                    info.style.display="none";
+                    info.innerText="";
+                };
+                AllImg.children[i+1].onclick=function () {
                     window.open("https://keepcodeing.github.io/InfectedZer-S/");
                 }
+            }
         }
-    }
+
     </script>
 </head>
 <body>
 <div class="Broad" id="Broad">
     <div class="info" id="info"></div>
+</div>
+<div class="tool">
+    <ul class="tool_list">
+        <li>幻灯片模式</li>
+    </ul>
+</div>
+<div>
+    <div class="ppt_box"></div>
+    <div class="ppt_img">
+        <span id="ppt_left">←上一张</span>
+        <span id="ppt_right">下一张→</span>
+        <span id="ppt_exit">退出播放</span>
+        <span id="ppt_auto">自动播放</span>
+    </div>
 </div>
 </body>
 </html>
