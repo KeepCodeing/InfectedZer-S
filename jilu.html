@@ -207,6 +207,8 @@
                     let BgStyle=info.MyStyle;
                     let id=this.el;
                     id[0].style.background=img+"no-repeat 0 0";
+		    id[0].style.backgroundSize = "cover";
+		    id[0].style.backgroundAttachment = "fixed";
                     id[0].style.backgroundSize=BgStyle;
                 }
                 //通过tag获取元素
